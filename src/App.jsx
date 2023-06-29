@@ -7,19 +7,23 @@ import Orders from "./components/Orders";
 
 function App() {
 	const [ordersList, setOrdersList] = useState([]);
-	const [selectedOrder, setSelectedOrder] = useState([]);
+	const [selectedOrder, setSelectedOrder] = useState([{}]);
 
 	return (
 		<>
-			<main className="h-screen grid grid-cols-3">
-				<div className="w-full bg-gray-100  p-3">
+			<main className="grid h-screen grid-cols-3">
+				<div className="w-full p-3 bg-gray-100">
 					<Menu menusArray={menusArray} />
 				</div>
-				<div className="w-full bg-gray-200  p-3">
-					<OrderedItems />
+				<div className="w-full p-3 bg-gray-200">
+					<OrderedItems selectedOrder={selectedOrder} />
 				</div>
-				<div className="w-full bg-gray-100  p-3">
-					<Orders setOrdersList={setOrdersList} ordersList={ordersList} />
+				<div className="w-full p-3 bg-gray-100">
+					<Orders
+						ordersList={ordersList}
+						setOrdersList={setOrdersList}
+						setSelectedOrder={setSelectedOrder}
+					/>
 				</div>
 			</main>
 		</>

@@ -1,8 +1,8 @@
 import React from "react";
 
 const Menu = ({ menusArray }) => {
-	const menusElement = menusArray.map((menu) => (
-		<div key={menu.id} className="flex justify-between">
+	const menusElement = menusArray.map((menu, i) => (
+		<div key={menu.fid} className="flex justify-between">
 			<p>{menu.name}</p>
 			<div className="flex gap-4">
 				<button>+</button>
