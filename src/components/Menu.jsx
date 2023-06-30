@@ -52,18 +52,34 @@ const Menu = ({
 	};
 
 	const menusElement = allMenus.map((menu, i) => (
-		<div key={menu.fid} className="flex justify-between p-2 mb-3 bg-white">
-			<p>{menu.name}</p>
-			<div className="flex gap-4">
-				<button onClick={() => plusQty(menu.fid)}>+</button>
+		<div
+			key={menu.fid}
+			className="flex justify-between p-2 mb-3 bg-white border rounded-lg shadow-sm"
+		>
+			<div className="text-sm">
+				<p>{menu.name}</p>
+				<p>${menu.price}</p>
+				<p className="text-xs text-gray-400">{menu.type}</p>
+			</div>
+			<div className="flex items-center gap-4 ">
+				<button
+					className="w-8 h-8 border rounded-full"
+					onClick={() => plusQty(menu.fid)}
+				>
+					+
+				</button>
 				<p>{menu.quantity}</p>
-				<button disabled={menu.quantity < 2} onClick={() => minusQty(menu.fid)}>
+				<button
+					className="w-8 h-8 border rounded-full"
+					disabled={menu.quantity < 2}
+					onClick={() => minusQty(menu.fid)}
+				>
 					-
 				</button>
 				<button
 					onClick={() => addItemToOrder(menu.fid)}
-					className={`w-full px-2 text-white ${
-						selectedOrder ? "bg-lime-400" : "bg-gray-300"
+					className={`h-full px-2 rounded-md text-white ${
+						selectedOrder ? "bg-blue-300" : "bg-gray-300"
 					} `}
 				>
 					+
@@ -72,12 +88,7 @@ const Menu = ({
 		</div>
 	));
 
-	return (
-		<div>
-			<h1 className="text-center">Menu</h1>
-			{menusElement}
-		</div>
-	);
+	return <div className="px-3 my-3">{menusElement}</div>;
 };
 
 export default Menu;

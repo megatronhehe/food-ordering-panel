@@ -14,7 +14,10 @@ function App() {
 	return (
 		<>
 			<main className="grid h-screen grid-cols-3">
-				<div className="w-full p-3 bg-gray-100">
+				<section className="w-full ">
+					<h1 className="py-4 text-lg tracking-wide text-center text-white bg-blue-300 shadow-sm rounded-bl-xl">
+						Menu
+					</h1>
 					<Menu
 						allMenus={allMenus}
 						setAllMenus={setAllMenus}
@@ -22,23 +25,29 @@ function App() {
 						ordersList={ordersList}
 						setOrdersList={setOrdersList}
 					/>
-				</div>
-				<div className="w-full p-3 bg-gray-200">
+				</section>
+				<section className="w-full bg-gray-100">
+					<h1 className="py-4 text-lg tracking-wide text-center text-white bg-blue-400 shadow-sm ">
+						Ordered Items
+					</h1>
 					<OrderedItems
 						selectedOrder={selectedOrder}
 						ordersList={ordersList}
 						setOrdersList={setOrdersList}
 						allMenus={allMenus}
 					/>
-				</div>
-				<div className="w-full p-3 bg-gray-100">
+				</section>
+				<section className="w-full">
+					<h1 className="py-4 text-lg tracking-wide text-center text-white bg-blue-300 shadow-sm rounded-br-xl">
+						Orders
+					</h1>
 					<Orders
 						ordersList={ordersList}
 						setOrdersList={setOrdersList}
 						setSelectedOrder={setSelectedOrder}
 						selectedOrder={selectedOrder}
 					/>
-				</div>
+				</section>
 			</main>
 		</>
 	);

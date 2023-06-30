@@ -59,30 +59,39 @@ const Orders = ({
 	};
 
 	const ordersListsElement = ordersList.map((order) => (
-		<div key={order.id} className="flex">
+		<div
+			key={order.id}
+			className="flex justify-between mb-3 overflow-hidden text-sm border rounded-lg"
+		>
 			<div
 				onClick={() => selectOrder(order.id)}
-				className="flex flex-col items-start p-2 mb-3 bg-white"
+				className="flex flex-col items-start w-full p-2"
 			>
-				<p>id: {order.id}</p>
-				<p>name: {order.name}</p>
+				<p className="font-semibold">{order.name}</p>
 				<p>table: {order.tableNumber}</p>
-				<p>{order.items.length}</p>
+				<p>items: {order.items.length}</p>
+				<p>total: 5$</p>
+				<p className="text-xs text-gray-400">id: {order.id}</p>
 			</div>
-			<button className="ml-2" onClick={() => deleteOrder(order.id)}>
+			<button
+				className="px-2 text-white bg-red-300"
+				onClick={() => deleteOrder(order.id)}
+			>
 				x
 			</button>
 		</div>
 	));
 
 	return (
-		<div className="text-center">
-			<h1>Orders</h1>
-			<button onClick={toggleShow} className="w-full py-2 my-3 bg-white">
+		<div className="px-3 my-3 text-center">
+			<button
+				onClick={toggleShow}
+				className="w-full py-2 mb-3 text-sm text-gray-500 border rounded-lg shadow-sm"
+			>
 				{isToggledShow ? "cancel x" : "create new order +"}
 			</button>
 			{isToggledShow && (
-				<form className="flex gap-3 mb-3">
+				<form className="flex gap-3 mb-3 ">
 					<input
 						required
 						type="text"
@@ -90,7 +99,7 @@ const Orders = ({
 						onChange={handleChange}
 						name="name"
 						value={newOrder.name}
-						className="w-3/5 p-2"
+						className="w-3/5 p-2 text-xs border rounded-lg shadow-sm"
 					/>
 					<input
 						type="number"
@@ -98,9 +107,12 @@ const Orders = ({
 						onChange={handleChange}
 						name="tableNumber"
 						value={newOrder.tableNumber}
-						className="w-2/5 p-2"
+						className="w-2/5 p-2 text-xs border rounded-lg shadow-sm"
 					/>
-					<button onClick={addNewOrder} className="p-2 bg-white">
+					<button
+						onClick={addNewOrder}
+						className="p-2 text-white bg-blue-300 rounded-lg shadow-sm "
+					>
 						+
 					</button>
 				</form>
@@ -108,7 +120,7 @@ const Orders = ({
 			{ordersList.length > 0 ? (
 				ordersListsElement
 			) : (
-				<p className="text-sm text-gray-400">
+				<p className="mt-24 text-sm text-gray-400">
 					order list is empty. create one first!
 				</p>
 			)}
