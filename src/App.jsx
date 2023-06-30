@@ -9,7 +9,7 @@ import Orders from "./components/Orders";
 function App() {
 	const [allMenus, setAllMenus] = useState(menusArray);
 	const [ordersList, setOrdersList] = useState([]);
-	const [selectedOrder, setSelectedOrder] = useState([]);
+	const [selectedOrder, setSelectedOrder] = useState("");
 
 	return (
 		<>
@@ -19,7 +19,6 @@ function App() {
 						allMenus={allMenus}
 						setAllMenus={setAllMenus}
 						selectedOrder={selectedOrder}
-						setSelectedOrder={setSelectedOrder}
 						ordersList={ordersList}
 						setOrdersList={setOrdersList}
 					/>

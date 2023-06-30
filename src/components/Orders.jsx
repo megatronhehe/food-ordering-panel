@@ -36,19 +36,20 @@ const Orders = ({
 	const addNewOrder = (e) => {
 		e.preventDefault();
 		if (newOrder.name) {
-			setOrdersList((prev) => [...prev, newOrder]);
+			setOrdersList((prev) => [newOrder, ...prev]);
+			setSelectedOrder(newOrder.id);
 			startNewOrder();
 		}
 	};
 
 	const selectOrder = (id) => {
 		const thisOrder = ordersList.find((order) => order.id === id);
-		setSelectedOrder(thisOrder);
+		setSelectedOrder(thisOrder.id);
 	};
 
 	const deleteOrder = (id) => {
 		setOrdersList((prev) => prev.filter((order) => order.id !== id));
-		if (selectedOrder.id === id) {
+		if (selectedOrder === id) {
 			setSelectedOrder([]);
 		}
 	};

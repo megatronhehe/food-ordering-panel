@@ -25,18 +25,17 @@ const Menu = ({
 	};
 
 	const addItemToOrder = (id) => {
-		if (selectedOrder.id > 0) {
+		if (selectedOrder) {
 			const thisItem = allMenus.find((menu) => menu.fid === id);
 			setOrdersList((prev) =>
 				prev.map((order) =>
-					order.id === selectedOrder.id
+					order.id === selectedOrder
 						? { ...order, items: [...order.items, thisItem] }
 						: order
 				)
 			);
 		}
 	};
-	// setSelectedOrder((prev) => ({ ...prev, items: [thisItem] }));
 
 	const menusElement = allMenus.map((menu, i) => (
 		<div key={menu.fid} className="flex justify-between p-2 mb-3 bg-white">
