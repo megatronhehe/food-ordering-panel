@@ -39,6 +39,7 @@ const Orders = ({
 			setOrdersList((prev) => [newOrder, ...prev]);
 			setSelectedOrder(newOrder.id);
 			startNewOrder();
+			setIsToggledShow(false);
 		}
 	};
 
@@ -58,29 +59,35 @@ const Orders = ({
 		setIsToggledShow((prev) => !prev);
 	};
 
-	const ordersListsElement = ordersList.map((order) => (
-		<div
-			key={order.id}
-			className="flex justify-between mb-3 overflow-hidden text-sm border rounded-lg"
-		>
+	const ordersListsElement = ordersList.map((order) => {
+		let totalPrice = 0;
+		order.items.forEach((item) => (totalPrice += item.quantity * item.price));
+		return (
 			<div
-				onClick={() => selectOrder(order.id)}
-				className="flex flex-col items-start w-full p-2"
+				key={order.id}
+				className="flex justify-between mb-3 overflow-hidden text-sm border rounded-lg"
 			>
-				<p className="font-semibold">{order.name}</p>
-				<p>table: {order.tableNumber}</p>
-				<p>items: {order.items.length}</p>
-				<p>total: 5$</p>
-				<p className="text-xs text-gray-400">id: {order.id}</p>
+				<div
+					onClick={() => selectOrder(order.id)}
+					className={`flex flex-col items-start w-full p-2 ${
+						selectedOrder === order.id ? "bg-gray-100" : "bg-white"
+					}`}
+				>
+					<p className="font-semibold">{order.name}</p>
+					<p>table: {order.tableNumber ? order.tableNumber : "-"}</p>
+					<p>items: {order.items.length}</p>
+					<p>total: ${totalPrice}</p>
+					<p className="text-xs text-gray-400">id: {order.id}</p>
+				</div>
+				<button
+					className="px-2 text-white bg-red-300"
+					onClick={() => deleteOrder(order.id)}
+				>
+					x
+				</button>
 			</div>
-			<button
-				className="px-2 text-white bg-red-300"
-				onClick={() => deleteOrder(order.id)}
-			>
-				x
-			</button>
-		</div>
-	));
+		);
+	});
 
 	return (
 		<div className="px-3 my-3 text-center">
