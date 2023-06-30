@@ -16,7 +16,7 @@ const Orders = ({
 		id: createId(),
 		name: "",
 		tableNumber: "",
-		items: ["hard", "coded", "ordered", "items", "here"],
+		items: [],
 	});
 
 	const handleChange = (e) => {
@@ -29,7 +29,7 @@ const Orders = ({
 			id: createId(),
 			name: "",
 			tableNumber: "",
-			items: ["hard", "coded", "ordered", "items", "here"],
+			items: [],
 		});
 	};
 
@@ -78,7 +78,7 @@ const Orders = ({
 		<div className="text-center">
 			<h1>Orders</h1>
 			<button onClick={toggleShow} className="w-full py-2 my-3 bg-white">
-				create a new order +
+				{isToggledShow ? "cancel x" : "create new order +"}
 			</button>
 			{isToggledShow && (
 				<form className="flex gap-3 mb-3">

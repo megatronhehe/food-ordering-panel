@@ -1,13 +1,18 @@
 import React from "react";
 
-const OrderedItems = ({ selectedOrder }) => {
+const OrderedItems = ({ selectedOrder, ordersList }) => {
 	let orderItemsElement;
 	if (selectedOrder.id > 0) {
-		orderItemsElement = selectedOrder.items.map((item, i) => (
-			<p key={i}>{item}</p>
+		const thisOrder = ordersList.filter(
+			(order) => order.id === selectedOrder.id
+		);
+		orderItemsElement = thisOrder[0].items.map((item, i) => (
+			<div key={i} className="flex justfy-between ">
+				<p>{item.name}</p>
+				<p>{item.quantity}</p>
+			</div>
 		));
 	}
-
 	return (
 		<div>
 			<h1 className="text-center">Ordered Items</h1>
