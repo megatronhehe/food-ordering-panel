@@ -10,7 +10,7 @@ const OrderedItems = ({ selectedOrder }) => {
 
 	return (
 		<div>
-			<h1 className="text-center">OrderedItems</h1>
+			<h1 className="text-center">Ordered Items</h1>
 			{selectedOrder.id > 0 ? (
 				orderItemsElement
 			) : (

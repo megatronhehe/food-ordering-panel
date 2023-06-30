@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 
-const Orders = ({ setOrdersList, ordersList, setSelectedOrder }) => {
+const Orders = ({
+	setOrdersList,
+	ordersList,
+	setSelectedOrder,
+	selectedOrder,
+}) => {
 	const createId = () => {
 		const time = new Date();
 		return `${time.getMilliseconds()}${time.getSeconds()}${time.getMinutes()}${time.getHours()}${time.getDate()}${time.getMonth()}${time.getFullYear()}`;
@@ -41,20 +46,31 @@ const Orders = ({ setOrdersList, ordersList, setSelectedOrder }) => {
 		setSelectedOrder(thisOrder);
 	};
 
+	const deleteOrder = (id) => {
+		setOrdersList((prev) => prev.filter((order) => order.id !== id));
+		if (selectedOrder.id === id) {
+			setSelectedOrder([]);
+		}
+	};
+
 	const toggleShow = () => {
 		setIsToggledShow((prev) => !prev);
 	};
 
 	const ordersListsElement = ordersList.map((order) => (
-		<div
-			key={order.id}
-			onClick={() => selectOrder(order.id)}
-			className="flex flex-col items-start p-2 mb-3 bg-white"
-		>
-			<p>id: {order.id}</p>
-			<p>name: {order.name}</p>
-			<p>table: {order.tableNumber}</p>
-			<p>{order.items.length}</p>
+		<div key={order.id} className="flex">
+			<div
+				onClick={() => selectOrder(order.id)}
+				className="flex flex-col items-start p-2 mb-3 bg-white"
+			>
+				<p>id: {order.id}</p>
+				<p>name: {order.name}</p>
+				<p>table: {order.tableNumber}</p>
+				<p>{order.items.length}</p>
+			</div>
+			<button className="ml-2" onClick={() => deleteOrder(order.id)}>
+				x
+			</button>
 		</div>
 	));
 
@@ -88,8 +104,13 @@ const Orders = ({ setOrdersList, ordersList, setSelectedOrder }) => {
 					</button>
 				</form>
 			)}
-			<div className=""></div>
-			{ordersListsElement}
+			{ordersList.length > 0 ? (
+				ordersListsElement
+			) : (
+				<p className="text-sm text-gray-400">
+					order list is empty. create one first!
+				</p>
+			)}
 		</div>
 	);
 };

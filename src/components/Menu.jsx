@@ -1,6 +1,8 @@
 import React from "react";
 
-const Menu = ({ menusArray }) => {
+import { menusArray } from "../data/data";
+
+const Menu = () => {
 	const menusElement = menusArray.map((menu, i) => (
 		<div key={menu.fid} className="flex justify-between">
 			<p>{menu.name}</p>
