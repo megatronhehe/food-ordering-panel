@@ -24,18 +24,51 @@ const Menu = ({
 		);
 	};
 
+	// loop to find the correct order
+	// loop through the items
+	//if there is the same id, add the quantity
+	//else just add
+
 	const addItemToOrder = (id) => {
 		if (selectedOrder) {
 			const thisItem = allMenus.find((menu) => menu.fid === id);
 			setOrdersList((prev) =>
-				prev.map((order) =>
-					order.id === selectedOrder
-						? { ...order, items: [...order.items, thisItem] }
-						: order
-				)
+				prev.map((order) => {
+					if (order.id === selectedOrder) {
+						const isExist = order.items.some(
+							(item) => item.fid == thisItem.fid
+						);
+						if (isExist) {
+							const newItemsArray = order.items.map((item) =>
+								item.fid === thisItem.fid
+									? { ...item, quantity: item.quantity + thisItem.quantity }
+									: item
+							);
+							return { ...order, items: newItemsArray };
+						} else {
+							return { ...order, items: [...order.items, thisItem] };
+						}
+						// return { ...order, items: [...order.items, thisItem] };
+					} else {
+						return order;
+					}
+				})
 			);
 		}
 	};
+
+	// const addItemToOrder = (id) => {
+	// 	if (selectedOrder) {
+	// 		const thisItem = allMenus.find((menu) => menu.fid === id);
+	// 		setOrdersList((prev) =>
+	// 			prev.map((order) =>
+	// 				order.id === selectedOrder
+	// 					? { ...order, items: [...order.items, thisItem] }
+	// 					: order
+	// 			)
+	// 		);
+	// 	}
+	// };
 
 	const menusElement = allMenus.map((menu, i) => (
 		<div key={menu.fid} className="flex justify-between p-2 mb-3 bg-white">
@@ -48,7 +81,9 @@ const Menu = ({
 				</button>
 				<button
 					onClick={() => addItemToOrder(menu.fid)}
-					className="w-full px-2 text-white bg-lime-400"
+					className={`w-full px-2 text-white ${
+						selectedOrder ? "bg-lime-400" : "bg-gray-300"
+					} `}
 				>
 					+
 				</button>

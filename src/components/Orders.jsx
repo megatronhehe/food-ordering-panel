@@ -50,7 +50,7 @@ const Orders = ({
 	const deleteOrder = (id) => {
 		setOrdersList((prev) => prev.filter((order) => order.id !== id));
 		if (selectedOrder === id) {
-			setSelectedOrder([]);
+			setSelectedOrder("");
 		}
 	};
 
