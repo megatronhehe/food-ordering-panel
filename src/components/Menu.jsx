@@ -24,11 +24,6 @@ const Menu = ({
 		);
 	};
 
-	// loop to find the correct order
-	// loop through the items
-	//if there is the same id, add the quantity
-	//else just add
-
 	const addItemToOrder = (id) => {
 		if (selectedOrder) {
 			const thisItem = allMenus.find((menu) => menu.fid === id);
@@ -48,7 +43,6 @@ const Menu = ({
 						} else {
 							return { ...order, items: [...order.items, thisItem] };
 						}
-						// return { ...order, items: [...order.items, thisItem] };
 					} else {
 						return order;
 					}
@@ -56,19 +50,6 @@ const Menu = ({
 			);
 		}
 	};
-
-	// const addItemToOrder = (id) => {
-	// 	if (selectedOrder) {
-	// 		const thisItem = allMenus.find((menu) => menu.fid === id);
-	// 		setOrdersList((prev) =>
-	// 			prev.map((order) =>
-	// 				order.id === selectedOrder
-	// 					? { ...order, items: [...order.items, thisItem] }
-	// 					: order
-	// 			)
-	// 		);
-	// 	}
-	// };
 
 	const menusElement = allMenus.map((menu, i) => (
 		<div key={menu.fid} className="flex justify-between p-2 mb-3 bg-white">

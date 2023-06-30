@@ -24,7 +24,12 @@ function App() {
 					/>
 				</div>
 				<div className="w-full p-3 bg-gray-200">
-					<OrderedItems selectedOrder={selectedOrder} ordersList={ordersList} />
+					<OrderedItems
+						selectedOrder={selectedOrder}
+						ordersList={ordersList}
+						setOrdersList={setOrdersList}
+						allMenus={allMenus}
+					/>
 				</div>
 				<div className="w-full p-3 bg-gray-100">
 					<Orders
