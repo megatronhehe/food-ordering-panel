@@ -79,24 +79,23 @@ const Orders = ({
 			>
 				<div
 					onClick={() => selectOrder(order.id)}
-					className={`flex flex-col items-start w-full p-2 ${
+					className={`flex flex-col items-start w-full p-3 ${
 						selectedOrder === order.id ? "bg-gray-100" : "bg-white"
 					}`}
 				>
 					<p className="mt-8 font-semibold">{order.name}</p>
 					<p>table: {order.tableNumber ? order.tableNumber : "-"}</p>
 					<p>items: {order.items.length}</p>
-					<p>
-						total: Rp.{totalPrice} : :{" "}
-						{order.completed ? "paid" : "not paid yet"}
-					</p>
+					<div className="flex items-center justify-between w-full">
+						<p>total : : Rp.{totalPrice}</p>
 
-					<p className="text-xs text-gray-400">id: {order.id}</p>
+						<p className="text-xs text-gray-400">id: {order.id}</p>
+					</div>
 				</div>
 				<div className="absolute flex items-center justify-between w-full p-2 text-xs ">
 					<button
 						onClick={() => markCompleted(order.id)}
-						className={`px-4 py-2 rounded-lg ${
+						className={`px-4 py-2 rounded-lg w-1/2 ${
 							order.completed
 								? "bg-lime-400 text-white"
 								: "bg-gray-300 text-gray-600"

@@ -77,6 +77,7 @@ const OrderedItems = ({
 					</div>
 					<div className="flex items-center gap-4">
 						<button
+							disabled={thisOrder[0].completed}
 							onClick={() => plusQty(item.fid)}
 							className="w-8 h-8 border rounded-full"
 						>
@@ -84,14 +85,17 @@ const OrderedItems = ({
 						</button>
 						<p>{item.quantity}</p>
 						<button
-							disabled={item.quantity < 2}
+							disabled={item.quantity < 2 || thisOrder[0].completed}
 							onClick={() => minusQty(item.fid)}
 							className="w-8 h-8 border rounded-full"
 						>
 							-
 						</button>
 						<button
-							className="h-full px-2 text-white bg-red-300 rounded-md px"
+							disabled={thisOrder[0].completed}
+							className={`h-full px-2 text-white rounded-md px ${
+								thisOrder[0].completed ? "bg-gray-300" : "bg-red-300"
+							}`}
 							onClick={() => removeItem(item.fid)}
 						>
 							x
