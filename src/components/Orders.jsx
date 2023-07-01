@@ -17,6 +17,7 @@ const Orders = ({
 		name: "",
 		tableNumber: "",
 		items: [],
+		completed: false,
 	});
 
 	const handleChange = (e) => {
@@ -30,6 +31,7 @@ const Orders = ({
 			name: "",
 			tableNumber: "",
 			items: [],
+			completed: false,
 		});
 	};
 
@@ -55,6 +57,14 @@ const Orders = ({
 		}
 	};
 
+	const markCompleted = (id) => {
+		setOrdersList((prev) =>
+			prev.map((order) =>
+				order.id === id ? { ...order, completed: !order.completed } : order
+			)
+		);
+	};
+
 	const toggleShow = () => {
 		setIsToggledShow((prev) => !prev);
 	};
@@ -65,7 +75,7 @@ const Orders = ({
 		return (
 			<div
 				key={order.id}
-				className="flex justify-between mb-3 overflow-hidden text-sm border rounded-lg"
+				className="relative flex justify-between mb-3 overflow-hidden text-sm border rounded-lg"
 			>
 				<div
 					onClick={() => selectOrder(order.id)}
@@ -73,18 +83,34 @@ const Orders = ({
 						selectedOrder === order.id ? "bg-gray-100" : "bg-white"
 					}`}
 				>
-					<p className="font-semibold">{order.name}</p>
+					<p className="mt-8 font-semibold">{order.name}</p>
 					<p>table: {order.tableNumber ? order.tableNumber : "-"}</p>
 					<p>items: {order.items.length}</p>
-					<p>total: Rp.{totalPrice}</p>
+					<p>
+						total: Rp.{totalPrice} : :{" "}
+						{order.completed ? "paid" : "not paid yet"}
+					</p>
+
 					<p className="text-xs text-gray-400">id: {order.id}</p>
 				</div>
-				<button
-					className="px-2 text-white bg-red-300"
-					onClick={() => deleteOrder(order.id)}
-				>
-					x
-				</button>
+				<div className="absolute flex items-center justify-between w-full p-2 text-xs ">
+					<button
+						onClick={() => markCompleted(order.id)}
+						className={`px-4 py-2 rounded-lg ${
+							order.completed
+								? "bg-lime-400 text-white"
+								: "bg-gray-300 text-gray-600"
+						}`}
+					>
+						{order.completed ? "completed" : "mark as completed"}
+					</button>
+					<button
+						className="px-4 py-2 text-white bg-red-300 rounded-lg"
+						onClick={() => deleteOrder(order.id)}
+					>
+						x
+					</button>
+				</div>
 			</div>
 		);
 	});

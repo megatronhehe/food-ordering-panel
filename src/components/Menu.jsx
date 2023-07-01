@@ -59,7 +59,7 @@ const Menu = ({
 	const filterButtonElement = filterTypeArray.map((filter, i) => (
 		<li
 			className={`px-2 border ${
-				filterType === filter && "bg-blue-300 text-white"
+				filterType === filter && "bg-blue-300 text-white border-white"
 			}`}
 			key={i}
 		>
@@ -106,7 +106,7 @@ const Menu = ({
 			<ul className="flex justify-center gap-2 mt-3 text-sm text-gray-500">
 				<li
 					className={`px-2 border ${
-						filterType === "all" && "bg-blue-300 text-white"
+						filterType === "all" && "bg-blue-300 text-white border-white"
 					}`}
 				>
 					<button onClick={() => setFilterType("all")}>all</button>
@@ -114,6 +114,9 @@ const Menu = ({
 				{filterButtonElement}
 			</ul>
 			<div className="px-3 my-3">
+				<h1 className="pb-2 mb-3 text-gray-500 border-b ">
+					{filterType} items
+				</h1>
 				{filterType === "all" ? menusElement : filteredMenusElement}
 			</div>
 		</div>
