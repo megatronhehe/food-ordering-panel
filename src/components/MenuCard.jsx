@@ -10,6 +10,7 @@ const MenuCard = ({
 	minusQty,
 	addItemToOrder,
 	selectedOrder,
+	thisOrder,
 }) => {
 	return (
 		<div
@@ -37,6 +38,7 @@ const MenuCard = ({
 					-
 				</button>
 				<button
+					disabled={!selectedOrder || thisOrder.completed}
 					onClick={() => addItemToOrder(fid)}
 					className={`h-full px-2 rounded-md text-white ${
 						selectedOrder ? "bg-blue-300" : "bg-gray-300"
