@@ -76,7 +76,7 @@ const Orders = ({
 					<p className="font-semibold">{order.name}</p>
 					<p>table: {order.tableNumber ? order.tableNumber : "-"}</p>
 					<p>items: {order.items.length}</p>
-					<p>total: ${totalPrice}</p>
+					<p>total: Rp.{totalPrice}</p>
 					<p className="text-xs text-gray-400">id: {order.id}</p>
 				</div>
 				<button

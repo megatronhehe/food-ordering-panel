@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import MenuCard from "./MenuCard";
 
 const Menu = ({
 	allMenus,
@@ -8,6 +9,8 @@ const Menu = ({
 	ordersList,
 	setOrdersList,
 }) => {
+	const [filterType, setFilterType] = useState("all");
+
 	const plusQty = (id) => {
 		setAllMenus((prev) =>
 			prev.map((menu) =>
@@ -51,44 +54,70 @@ const Menu = ({
 		}
 	};
 
-	const menusElement = allMenus.map((menu, i) => (
-		<div
-			key={menu.fid}
-			className="flex justify-between p-2 mb-3 bg-white border rounded-lg shadow-sm"
+	const filterTypeArray = [...new Set(allMenus.map((menu) => menu.type))];
+
+	const filterButtonElement = filterTypeArray.map((filter, i) => (
+		<li
+			className={`px-2 border ${
+				filterType === filter && "bg-blue-300 text-white"
+			}`}
+			key={i}
 		>
-			<div className="text-sm">
-				<p>{menu.name}</p>
-				<p>${menu.price}</p>
-				<p className="text-xs text-gray-400">{menu.type}</p>
-			</div>
-			<div className="flex items-center gap-4 ">
-				<button
-					className="w-8 h-8 border rounded-full"
-					onClick={() => plusQty(menu.fid)}
-				>
-					+
-				</button>
-				<p>{menu.quantity}</p>
-				<button
-					className="w-8 h-8 border rounded-full"
-					disabled={menu.quantity < 2}
-					onClick={() => minusQty(menu.fid)}
-				>
-					-
-				</button>
-				<button
-					onClick={() => addItemToOrder(menu.fid)}
-					className={`h-full px-2 rounded-md text-white ${
-						selectedOrder ? "bg-blue-300" : "bg-gray-300"
-					} `}
-				>
-					+
-				</button>
-			</div>
-		</div>
+			<button onClick={() => setFilterType(`${filter}`)}>{filter}</button>
+		</li>
 	));
 
-	return <div className="px-3 my-3">{menusElement}</div>;
+	const filteredMenusArray = allMenus.filter(
+		(menu) => menu.type === filterType
+	);
+
+	const filteredMenusElement = filteredMenusArray.map((menu) => (
+		<MenuCard
+			key={menu.fid}
+			fid={menu.fid}
+			name={menu.name}
+			price={menu.price}
+			type={menu.type}
+			plusQty={plusQty}
+			quantity={menu.quantity}
+			minusQty={minusQty}
+			addItemToOrder={addItemToOrder}
+			selectedOrder={selectedOrder}
+		/>
+	));
+
+	const menusElement = allMenus.map((menu, i) => (
+		<MenuCard
+			key={menu.fid}
+			fid={menu.fid}
+			name={menu.name}
+			price={menu.price}
+			type={menu.type}
+			plusQty={plusQty}
+			quantity={menu.quantity}
+			minusQty={minusQty}
+			addItemToOrder={addItemToOrder}
+			selectedOrder={selectedOrder}
+		/>
+	));
+
+	return (
+		<div>
+			<ul className="flex justify-center gap-2 mt-3 text-sm text-gray-500">
+				<li
+					className={`px-2 border ${
+						filterType === "all" && "bg-blue-300 text-white"
+					}`}
+				>
+					<button onClick={() => setFilterType("all")}>all</button>
+				</li>
+				{filterButtonElement}
+			</ul>
+			<div className="px-3 my-3">
+				{filterType === "all" ? menusElement : filteredMenusElement}
+			</div>
+		</div>
+	);
 };
 
 export default Menu;

@@ -108,7 +108,7 @@ const OrderedItems = ({
 				<div>
 					<div className="flex justify-between">
 						<p className="mb-2 font-semibold">{`${thisOrder[0].name}'s orders`}</p>
-						<p className="font-semibold">: : ${totalPrice}</p>
+						<p className="font-semibold">: : Rp.{totalPrice}</p>
 					</div>
 					<div>{orderItemsElement}</div>
 				</div>
