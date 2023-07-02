@@ -67,9 +67,6 @@ const Menu = ({
 		</li>
 	));
 
-	// const thisOrder = selectedOrder
-	// 	? ordersList.filter((order) => order.id === selectedOrder)
-	// 	: [];
 	const filteredMenusArray = allMenus.filter(
 		(menu) => menu.type === filterType
 	);

@@ -1,4 +1,5 @@
 import React from "react";
+import OrderedItemsCard from "./OrderedItemsCard";
 
 const OrderedItems = ({
 	selectedOrder,
@@ -81,44 +82,20 @@ const OrderedItems = ({
 	let totalPrice = 0;
 
 	if (selectedOrder) {
-		orderItemsElement = thisOrder.items.map((item, i) => {
+		orderItemsElement = thisOrder.items.map((item) => {
 			totalPrice += item.price * item.quantity;
 			return (
-				<div
-					key={i}
-					className="flex justify-between w-full p-2 mb-2 text-sm bg-white rounded-lg shadow-sm"
-				>
-					<div>
-						<p>{item.name}</p>
-						<p className="text-xs text-gray-400">{item.type}</p>
-					</div>
-					<div className="flex items-center gap-4">
-						<button
-							disabled={thisOrder.completed}
-							onClick={() => plusQty(item.fid)}
-							className="w-8 h-8 border rounded-full"
-						>
-							+
-						</button>
-						<p>{item.quantity}</p>
-						<button
-							disabled={item.quantity < 2 || thisOrder.completed}
-							onClick={() => minusQty(item.fid)}
-							className="w-8 h-8 border rounded-full"
-						>
-							-
-						</button>
-						<button
-							disabled={thisOrder.completed}
-							className={`h-full px-2 text-white rounded-md px ${
-								thisOrder.completed ? "bg-gray-300" : "bg-red-300"
-							}`}
-							onClick={() => removeItem(item.fid)}
-						>
-							x
-						</button>
-					</div>
-				</div>
+				<OrderedItemsCard
+					fid={item.fid}
+					name={item.name}
+					price={item.price}
+					quantity={item.quantity}
+					type={item.type}
+					completed={thisOrder.completed}
+					plusQty={plusQty}
+					minusQty={minusQty}
+					removeItem={removeItem}
+				/>
 			);
 		});
 	}
@@ -139,7 +116,7 @@ const OrderedItems = ({
 							{thisOrder.completed ? "completed" : "mark as completed"}
 						</button>
 						<button
-							className="px-3 py-2 text-white bg-red-300 rounded-lg"
+							className="px-4 py-2 text-white bg-red-300 rounded-lg"
 							onClick={() => deleteOrder(thisOrder.id)}
 						>
 							x

@@ -41,7 +41,9 @@ const MenuCard = ({
 					disabled={!selectedOrder || thisOrder.completed}
 					onClick={() => addItemToOrder(fid)}
 					className={`h-full px-2 rounded-md text-white ${
-						selectedOrder ? "bg-blue-300" : "bg-gray-300"
+						!selectedOrder || thisOrder.completed
+							? "bg-gray-300"
+							: "bg-blue-300"
 					} `}
 				>
 					+
