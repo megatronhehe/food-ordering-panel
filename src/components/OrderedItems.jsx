@@ -6,6 +6,7 @@ const OrderedItems = ({
 	setOrdersList,
 	allMenus,
 	thisOrder,
+	setSelectedOrder,
 }) => {
 	// markCompleted and deleteOrder exist in Orders component, tried to make it dry but failed.. maybe later i'll get back to this
 
@@ -139,7 +140,7 @@ const OrderedItems = ({
 						</button>
 						<button
 							className="px-3 py-2 text-white bg-red-300 rounded-lg"
-							onClick={() => markCompleted(thisOrder.id)}
+							onClick={() => deleteOrder(thisOrder.id)}
 						>
 							x
 						</button>

@@ -49,6 +49,7 @@ function App() {
 						setOrdersList={setOrdersList}
 						allMenus={allMenus}
 						thisOrder={thisOrder[0]}
+						setSelectedOrder={setSelectedOrder}
 					/>
 				</section>
 				<section className="w-full ">
