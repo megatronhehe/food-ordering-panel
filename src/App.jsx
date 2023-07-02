@@ -11,6 +11,18 @@ function App() {
 	const [ordersList, setOrdersList] = useState([]);
 	const [selectedOrder, setSelectedOrder] = useState("");
 
+	const thisOrder = selectedOrder
+		? ordersList.filter((order) => order.id === selectedOrder)
+		: [];
+
+	const markCompleted = (id) => {
+		setOrdersList((prev) =>
+			prev.map((order) =>
+				order.id === id ? { ...order, completed: !order.completed } : order
+			)
+		);
+	};
+
 	return (
 		<>
 			<main className="grid h-screen grid-cols-3 ">
@@ -24,6 +36,7 @@ function App() {
 						selectedOrder={selectedOrder}
 						ordersList={ordersList}
 						setOrdersList={setOrdersList}
+						thisOrder={thisOrder[0]}
 					/>
 				</section>
 				<section className="w-full bg-gray-100 ">
@@ -35,6 +48,7 @@ function App() {
 						ordersList={ordersList}
 						setOrdersList={setOrdersList}
 						allMenus={allMenus}
+						thisOrder={thisOrder[0]}
 					/>
 				</section>
 				<section className="w-full ">

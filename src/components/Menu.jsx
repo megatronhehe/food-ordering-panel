@@ -8,6 +8,7 @@ const Menu = ({
 	setSelectedOrder,
 	ordersList,
 	setOrdersList,
+	thisOrder,
 }) => {
 	const [filterType, setFilterType] = useState("all");
 
@@ -66,9 +67,9 @@ const Menu = ({
 		</li>
 	));
 
-	const thisOrder = selectedOrder
-		? ordersList.filter((order) => order.id === selectedOrder)
-		: [];
+	// const thisOrder = selectedOrder
+	// 	? ordersList.filter((order) => order.id === selectedOrder)
+	// 	: [];
 	const filteredMenusArray = allMenus.filter(
 		(menu) => menu.type === filterType
 	);
@@ -85,7 +86,7 @@ const Menu = ({
 			minusQty={minusQty}
 			addItemToOrder={addItemToOrder}
 			selectedOrder={selectedOrder}
-			thisOrder={thisOrder[0]}
+			thisOrder={thisOrder}
 		/>
 	));
 
@@ -101,7 +102,7 @@ const Menu = ({
 			minusQty={minusQty}
 			addItemToOrder={addItemToOrder}
 			selectedOrder={selectedOrder}
-			thisOrder={thisOrder[0]}
+			thisOrder={thisOrder}
 		/>
 	));
 

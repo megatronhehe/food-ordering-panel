@@ -54,6 +54,8 @@ const Orders = ({
 		setSelectedOrder(thisOrder.id);
 	};
 
+	// markCompleted and deleteOrder exist in OrderedItems component, tried to make it dry but failed.. maybe later i'll get back to this
+
 	const deleteOrder = (id) => {
 		setOrdersList((prev) => prev.filter((order) => order.id !== id));
 		if (selectedOrder === id) {
