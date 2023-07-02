@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import OrderCard from "./OrderCard";
+
 const Orders = ({
 	setOrdersList,
 	ordersList,
@@ -75,95 +77,39 @@ const Orders = ({
 		(order) => order.completed === filterCompleted
 	);
 
-	const filteredOrdersListsElement = filteredOrdersListsArray.map((order) => {
-		let totalPrice = 0;
-		order.items.forEach((item) => (totalPrice += item.quantity * item.price));
-		return (
-			<div
-				key={order.id}
-				className="relative flex justify-between mb-3 overflow-hidden text-sm border rounded-lg"
-			>
-				<div
-					onClick={() => selectOrder(order.id)}
-					className={`flex flex-col items-start w-full p-3 ${
-						selectedOrder === order.id ? "bg-gray-100" : "bg-white"
-					}`}
-				>
-					<p className="mt-8 font-semibold">{order.name}</p>
-					<p>table: {order.tableNumber ? order.tableNumber : "-"}</p>
-					<p>items: {order.items.length}</p>
-					<div className="flex items-center justify-between w-full">
-						<p>total : : Rp.{totalPrice}</p>
+	const filteredOrdersListsElement = filteredOrdersListsArray.map((order) => (
+		<OrderCard
+			key={order.id}
+			id={order.id}
+			items={order.items}
+			quantity={order.quantity}
+			price={order.price}
+			tableNumber={order.tableNumber}
+			name={order.name}
+			completed={order.completed}
+			selectedOrder={selectedOrder}
+			selectOrder={selectOrder}
+			markCompleted={markCompleted}
+			deleteOrder={deleteOrder}
+		/>
+	));
 
-						<p className="text-xs text-gray-400">id: {order.id}</p>
-					</div>
-				</div>
-				<div className="absolute flex items-center justify-between w-full p-2 text-xs ">
-					<button
-						onClick={() => markCompleted(order.id)}
-						className={`px-4 py-2 rounded-lg w-1/2 ${
-							order.completed
-								? "bg-lime-400 text-white"
-								: "bg-gray-300 text-gray-600"
-						}`}
-					>
-						{order.completed ? "completed" : "mark as completed"}
-					</button>
-					<button
-						className="px-4 py-2 text-white bg-red-300 rounded-lg"
-						onClick={() => deleteOrder(order.id)}
-					>
-						x
-					</button>
-				</div>
-			</div>
-		);
-	});
-
-	const ordersListsElement = ordersList.map((order) => {
-		let totalPrice = 0;
-		order.items.forEach((item) => (totalPrice += item.quantity * item.price));
-		return (
-			<div
-				key={order.id}
-				className="relative flex justify-between mb-3 overflow-hidden text-sm border rounded-lg"
-			>
-				<div
-					onClick={() => selectOrder(order.id)}
-					className={`flex flex-col items-start w-full p-3 ${
-						selectedOrder === order.id ? "bg-gray-100" : "bg-white"
-					}`}
-				>
-					<p className="mt-8 font-semibold">{order.name}</p>
-					<p>table: {order.tableNumber ? order.tableNumber : "-"}</p>
-					<p>items: {order.items.length}</p>
-					<div className="flex items-center justify-between w-full">
-						<p>total : : Rp.{totalPrice}</p>
-
-						<p className="text-xs text-gray-400">id: {order.id}</p>
-					</div>
-				</div>
-				<div className="absolute flex items-center justify-between w-full p-2 text-xs ">
-					<button
-						onClick={() => markCompleted(order.id)}
-						className={`px-4 py-2 rounded-lg w-1/2 ${
-							order.completed
-								? "bg-lime-400 text-white"
-								: "bg-gray-300 text-gray-600"
-						}`}
-					>
-						{order.completed ? "completed" : "mark as completed"}
-					</button>
-					<button
-						className="px-4 py-2 text-white bg-red-300 rounded-lg"
-						onClick={() => deleteOrder(order.id)}
-					>
-						x
-					</button>
-				</div>
-			</div>
-		);
-	});
+	const ordersListsElement = ordersList.map((order) => (
+		<OrderCard
+			key={order.id}
+			id={order.id}
+			items={order.items}
+			quantity={order.quantity}
+			price={order.price}
+			tableNumber={order.tableNumber}
+			name={order.name}
+			completed={order.completed}
+			selectedOrder={selectedOrder}
+			selectOrder={selectOrder}
+			markCompleted={markCompleted}
+			deleteOrder={deleteOrder}
+		/>
+	));
 
 	return (
 		<div className="px-3 my-3 text-center">
@@ -173,56 +119,6 @@ const Orders = ({
 			>
 				{isToggledShow ? "cancel x" : "create new order +"}
 			</button>
-
-			<nav>
-				<ul className="flex justify-center gap-2 mb-3 text-sm text-gray-500">
-					<li
-						className={`px-2 border ${
-							allFilter && "bg-blue-300 text-white border-white"
-						}`}
-					>
-						<button
-							onClick={() => {
-								setAllFilter(true);
-							}}
-						>
-							all
-						</button>
-					</li>
-					<li
-						className={`px-2 border ${
-							filterCompleted &&
-							!allFilter &&
-							"bg-blue-300 text-white border-white"
-						}`}
-					>
-						<button
-							onClick={() => {
-								setFilterCompleted(true);
-								setAllFilter(false);
-							}}
-						>
-							completed
-						</button>
-					</li>
-					<li
-						className={`px-2 border ${
-							!filterCompleted &&
-							!allFilter &&
-							"bg-blue-300 text-white border-white"
-						}`}
-					>
-						<button
-							onClick={() => {
-								setFilterCompleted(false);
-								setAllFilter(false);
-							}}
-						>
-							not completed
-						</button>
-					</li>
-				</ul>
-			</nav>
 
 			<section>
 				{isToggledShow && (
@@ -255,12 +151,57 @@ const Orders = ({
 			</section>
 
 			<section>
+				<nav>
+					<ul className="flex justify-center gap-2 mb-3 text-sm text-gray-500">
+						<li
+							className={`px-2 border ${
+								allFilter && "bg-blue-300 text-white border-white"
+							}`}
+						>
+							<button
+								onClick={() => {
+									setAllFilter(true);
+								}}
+							>
+								all
+							</button>
+						</li>
+						<li
+							className={`px-2 border ${
+								filterCompleted &&
+								!allFilter &&
+								"bg-blue-300 text-white border-white"
+							}`}
+						>
+							<button
+								onClick={() => {
+									setFilterCompleted(true);
+									setAllFilter(false);
+								}}
+							>
+								completed
+							</button>
+						</li>
+						<li
+							className={`px-2 border ${
+								!filterCompleted &&
+								!allFilter &&
+								"bg-blue-300 text-white border-white"
+							}`}
+						>
+							<button
+								onClick={() => {
+									setFilterCompleted(false);
+									setAllFilter(false);
+								}}
+							>
+								incomplete
+							</button>
+						</li>
+					</ul>
+				</nav>
 				<h1 className="pb-2 mb-3 text-gray-500 border-b text-start">
-					{allFilter
-						? "all "
-						: filterCompleted
-						? "completed "
-						: "not completed "}
+					{allFilter ? "all " : filterCompleted ? "completed " : "incomplete "}
 					orders
 				</h1>
 				{ordersList.length > 0 ? (
