@@ -55,7 +55,6 @@ const Menu = ({
 	};
 
 	const filterTypeArray = [...new Set(allMenus.map((menu) => menu.type))];
-
 	const filterButtonElement = filterTypeArray.map((filter, i) => (
 		<li
 			className={`px-2 border ${
@@ -70,9 +69,6 @@ const Menu = ({
 	const thisOrder = selectedOrder
 		? ordersList.filter((order) => order.id === selectedOrder)
 		: [];
-
-	console.log(thisOrder);
-
 	const filteredMenusArray = allMenus.filter(
 		(menu) => menu.type === filterType
 	);
