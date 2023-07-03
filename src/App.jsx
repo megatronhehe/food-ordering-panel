@@ -23,6 +23,8 @@ function App() {
 		);
 	};
 
+	const filterTypeArray = [...new Set(allMenus.map((menu) => menu.type))];
+
 	return (
 		<>
 			<main className="grid h-screen grid-cols-3 ">
@@ -37,6 +39,7 @@ function App() {
 						ordersList={ordersList}
 						setOrdersList={setOrdersList}
 						thisOrder={thisOrder[0]}
+						filterTypeArray={filterTypeArray}
 					/>
 				</section>
 				<section className="w-full bg-gray-100 ">
@@ -50,6 +53,7 @@ function App() {
 						allMenus={allMenus}
 						thisOrder={thisOrder[0]}
 						setSelectedOrder={setSelectedOrder}
+						filterTypeArray={filterTypeArray}
 					/>
 				</section>
 				<section className="w-full ">

@@ -8,6 +8,7 @@ const OrderedItems = ({
 	allMenus,
 	thisOrder,
 	setSelectedOrder,
+	filterTypeArray,
 }) => {
 	// markCompleted and deleteOrder exist in Orders component, tried to make it dry but failed.. maybe later i'll get back to this
 

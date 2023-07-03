@@ -9,6 +9,7 @@ const Menu = ({
 	ordersList,
 	setOrdersList,
 	thisOrder,
+	filterTypeArray,
 }) => {
 	const [filterType, setFilterType] = useState("all");
 
@@ -55,7 +56,7 @@ const Menu = ({
 		}
 	};
 
-	const filterTypeArray = [...new Set(allMenus.map((menu) => menu.type))];
+	// const filterTypeArray = [...new Set(allMenus.map((menu) => menu.type))];
 	const filterButtonElement = filterTypeArray.map((filter, i) => (
 		<li
 			className={`px-2 border ${
