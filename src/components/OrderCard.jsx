@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const OrderCard = ({
 	items,
@@ -13,6 +13,12 @@ const OrderCard = ({
 	completed,
 	deleteOrder,
 }) => {
+	const [toggleConfirm, setToggleConfirm] = useState(false);
+
+	const toggle = () => {
+		setToggleConfirm((prev) => !prev);
+	};
+
 	let totalPrice = 0;
 	let totalQuantity = 0;
 	items.forEach((item) => (totalPrice += item.quantity * item.price));
@@ -37,7 +43,7 @@ const OrderCard = ({
 						<p className="text-xs text-gray-400">id: {id}</p>
 					</div>
 				</div>
-				<div className="absolute flex items-center justify-between w-full p-2 text-xs ">
+				<div className="absolute flex items-start justify-between w-full p-2 text-xs ">
 					<button
 						onClick={() => markCompleted(id)}
 						className={`px-4 py-2 rounded-lg w-1/2 ${
@@ -46,12 +52,22 @@ const OrderCard = ({
 					>
 						{completed ? "completed" : "mark as completed"}
 					</button>
-					<button
-						className="px-4 py-2 text-white bg-red-300 rounded-lg"
-						onClick={() => deleteOrder(id)}
-					>
-						x
-					</button>
+					<div className="flex flex-col gap-2">
+						<button
+							className="px-4 py-2 text-white bg-gray-300 rounded-lg"
+							onClick={toggle}
+						>
+							{toggleConfirm ? "N" : "X"}
+						</button>
+						{toggleConfirm && (
+							<button
+								className="px-4 py-2 text-white rounded-lg bg-rose-300"
+								onClick={() => deleteOrder(id)}
+							>
+								Y
+							</button>
+						)}
+					</div>
 				</div>
 			</div>
 			{selectedOrder === id && (

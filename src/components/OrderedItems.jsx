@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import OrderedItemsCard from "./OrderedItemsCard";
 
 const OrderedItems = ({
@@ -10,6 +10,11 @@ const OrderedItems = ({
 	setSelectedOrder,
 	filterTypeArray,
 }) => {
+	const [toggleConfirm, setToggleConfirm] = useState(false);
+
+	const toggle = () => {
+		setToggleConfirm((prev) => !prev);
+	};
 	// markCompleted and deleteOrder exist in Orders component, tried to make it dry but failed.. maybe later i'll get back to this
 
 	const markCompleted = (id) => {
@@ -116,12 +121,22 @@ const OrderedItems = ({
 						>
 							{thisOrder.completed ? "completed" : "mark as completed"}
 						</button>
-						<button
-							className="px-4 py-2 text-white bg-red-300 rounded-lg"
-							onClick={() => deleteOrder(thisOrder.id)}
-						>
-							x
-						</button>
+						<div className="flex gap-1">
+							{toggleConfirm && (
+								<button
+									className="px-4 py-2 text-white bg-red-300 rounded-lg"
+									onClick={() => deleteOrder(thisOrder.id)}
+								>
+									Y
+								</button>
+							)}
+							<button
+								className={`px-4 py-2 text-white bg-gray-300 rounded-lg`}
+								onClick={toggle}
+							>
+								{toggleConfirm ? "N" : "X"}
+							</button>
+						</div>
 					</div>
 					<div className="flex justify-between">
 						<p className="mb-2 font-semibold">{`${thisOrder.name}'s orders`}</p>
