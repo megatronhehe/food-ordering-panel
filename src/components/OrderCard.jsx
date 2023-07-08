@@ -52,13 +52,7 @@ const OrderCard = ({
 					>
 						{completed ? "completed" : "mark as completed"}
 					</button>
-					<div className="flex flex-col gap-2">
-						<button
-							className="px-4 py-2 text-white bg-gray-300 rounded-lg"
-							onClick={toggle}
-						>
-							{toggleConfirm ? "N" : "X"}
-						</button>
+					<div className="flex gap-1">
 						{toggleConfirm && (
 							<button
 								className="px-4 py-2 text-white rounded-lg bg-rose-300"
@@ -67,6 +61,12 @@ const OrderCard = ({
 								Y
 							</button>
 						)}
+						<button
+							className="px-4 py-2 text-white bg-gray-300 rounded-lg"
+							onClick={toggle}
+						>
+							{toggleConfirm ? "N" : "X"}
+						</button>
 					</div>
 				</div>
 			</div>
