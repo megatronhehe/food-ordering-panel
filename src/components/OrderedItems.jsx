@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import OrderedItemsCard from "./OrderedItemsCard";
+import FoodTypeLabel from "./FoodTypeLabel";
 
 const OrderedItems = ({
 	selectedOrder,
@@ -84,14 +85,21 @@ const OrderedItems = ({
 		);
 	};
 
-	let orderItemsElement;
 	let totalPrice = 0;
 
-	if (selectedOrder) {
-		orderItemsElement = thisOrder.items.map((item) => {
+	const typeLabelArray = selectedOrder
+		? [...new Set(thisOrder.items.map((item) => item.type))]
+		: [];
+
+	const typeLabelElement = typeLabelArray.map((type) => {
+		const filteredItemsArray = thisOrder.items.filter(
+			(item) => item.type === type
+		);
+		const filteredItemsElement = filteredItemsArray.map((item) => {
 			totalPrice += item.price * item.quantity;
 			return (
 				<OrderedItemsCard
+					key={item.fid}
 					fid={item.fid}
 					name={item.name}
 					price={item.price}
@@ -104,7 +112,12 @@ const OrderedItems = ({
 				/>
 			);
 		});
-	}
+		return (
+			<FoodTypeLabel key={type} foodType={type}>
+				{filteredItemsElement}
+			</FoodTypeLabel>
+		);
+	});
 
 	return (
 		<div className="px-3 my-3">
@@ -142,10 +155,10 @@ const OrderedItems = ({
 						<p className="mb-2 font-semibold">{`${thisOrder.name}'s orders`}</p>
 						<p className="font-semibold">: : Rp.{totalPrice}</p>
 					</div>
-					<div>{orderItemsElement}</div>
+					<div>{typeLabelElement}</div>
 				</div>
 			) : (
-				<p className="mt-4 text-sm text-center text-gray-400">
+				<p className="mt-56 text-sm text-center text-gray-400">
 					create or select an order first!
 				</p>
 			)}
